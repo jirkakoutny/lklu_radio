@@ -14,7 +14,7 @@ function App() {
     const getData = async () => {
       try {
         const response = await axios.get(
-          `http://meteo.aeroklubluhacovice.cz:8081/xml.xml`
+          `meteo.aeroklubluhacovice.cz:8081/xml.xml`
         );
         const json = xml2json(response.data);
         const datetime = moment(json.wario.date + " " + json.wario.time, "YYYY-M-D h:m:s")
