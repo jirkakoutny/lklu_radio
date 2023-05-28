@@ -32,12 +32,8 @@ function App() {
           civilStart: json.wario?.variable?.civstart,
           civilEnd: json.wario?.variable?.civend,
         }
-        console.log(output)
-
-
 
         setData(output)
-        // setData(response.data);
         setError(null);
       } catch (err) {
         setError(err.message);
