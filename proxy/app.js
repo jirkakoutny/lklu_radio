@@ -24,7 +24,7 @@ app.get('/data', (req, res) => {
 
       
       res.set('Content-Type', 'text/xml');
-      res.send(xml(body));
+      res.send(body);
     }
   )
 });
