@@ -13,9 +13,20 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       try {
+
+        const test1 = fetch("https://cors-proxy-navy-seven.vercel.app/", { headers: { 'my-url': "meteo.aeroklubluhacovice.cz:8081/xml.xml" }})
+        const test = await axios.get(`https://cors-proxy-git-main-koutnyjiri.vercel.app/`, { headers: { "my-url": "meteo.aeroklubluhacovice.cz:8081/xml.xml" }})
+
+        console.log(test1)
+        console.log(test)
+
         const response = await axios.get(
           `meteo.aeroklubluhacovice.cz:8081/xml.xml`
         );
+
+
+
+
         const json = xml2json(response.data);
         const datetime = moment(json.wario.date + " " + json.wario.time, "YYYY-M-D h:m:s")
 
