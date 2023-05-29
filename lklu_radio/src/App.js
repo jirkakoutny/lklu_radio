@@ -14,10 +14,12 @@ function App() {
     const getData = async () => {
       try {
 
-        const test1 = fetch("https://cors-proxy-navy-seven.vercel.app/", { headers: { 'my-url': "meteo.aeroklubluhacovice.cz:8081/xml.xml" }})
+        const test1 = await fetch("https://cors-proxy-navy-seven.vercel.app/", { headers: { 'my-url': "meteo.aeroklubluhacovice.cz:8081/xml.xml" }})
         const test = await axios.get(`https://cors-proxy-git-main-koutnyjiri.vercel.app/`, { headers: { "my-url": "meteo.aeroklubluhacovice.cz:8081/xml.xml" }})
 
+        console.log('test1 output')
         console.log(test1)
+        console.log('test output')
         console.log(test)
 
         const response = await axios.get(
