@@ -10,6 +10,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  return res.status(200).json({ type: 'error', message: 'running' });
+})
+
 app.get('/data', (req, res) => {
   request(
     { url: 'http://meteo.aeroklubluhacovice.cz:8081/xml.xml' },
