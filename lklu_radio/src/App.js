@@ -15,7 +15,7 @@ function App() {
     const getData = async () => {
       try {
         const response = await axios.get(process.env.fetch_url || proxy_url);
- 
+
         const json = xml2json(response.data);
         const datetime = moment(
           json.wario.date + " " + json.wario.time,
@@ -24,6 +24,7 @@ function App() {
 
         const output = {
           datetime: datetime.format("DD-MM-YYYY hh:mm:ss"),
+          frequency: '125,285 MHz'
           rwy: 20,
           temperature:
             json.wario.input.sensor.filter((x) => x.type === "temperature")[0]
@@ -87,11 +88,11 @@ function App() {
       )}
 
       <div className="mockup-code">
-        <pre data-prefix="$">
-          LKLU radio <code className="text-warning">125,285</code>
+        <pre>
+          LKLU radio <code className="text-warning">{!loading && data.frequency}</code> <code className="text-warning">{!loading && data.frequency}</code>
         </pre>
-        <pre data-prefix=">" className="text-warning">
-          Time: <code>{!loading && data.datetime}</code>
+        <pre data-prefix=">">
+          Time: <code className="text-warning">{!loading && data.datetime}</code>
         </pre>
         <pre data-prefix=">" className="text-warning">
           Rwy:{" "}
