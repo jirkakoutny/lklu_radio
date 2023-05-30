@@ -1,6 +1,8 @@
 const express = require("express");
 const request = require("request");
 
+const fetch_url = "http://meteo.aeroklubluhacovice.cz:8081/xml.xml"
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -13,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
-  console.log(process.env.fetch_url)
+  console.log(process.env.fetch_url || fetch_url)
   request(
     { url: process.env.fetch_url },
     (error, response, body) => {
