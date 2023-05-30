@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/data", (req, res) => {
+  console.log(process.env.fetch_url)
   request(
     { url: process.env.fetch_url },
     (error, response, body) => {

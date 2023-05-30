@@ -1844,75 +1844,6 @@ html {
   }
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--rounded-box, 1rem);
-}
-
-.card:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.card figure {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card.image-full {
-  display: grid;
-}
-
-.card.image-full:before {
-  position: relative;
-  content: "";
-  z-index: 10;
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--n) / var(--tw-bg-opacity));
-  opacity: 0.75;
-  border-radius: var(--rounded-box, 1rem);
-}
-
-.card.image-full:before,
-    .card.image-full > * {
-  grid-column-start: 1;
-  grid-row-start: 1;
-}
-
-.card.image-full > figure img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.card.image-full > .card-body {
-  position: relative;
-  z-index: 20;
-  --tw-text-opacity: 1;
-  color: hsl(var(--nc) / var(--tw-text-opacity));
-}
-
-.divider {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-self: stretch;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  height: 1rem;
-  white-space: nowrap;
-}
-
-.divider:before,
-  .divider:after {
-  content: "";
-  flex-grow: 1;
-  height: 0.125rem;
-  width: 100%;
-}
-
 .input {
   flex-shrink: 1;
   height: 3rem;
@@ -2067,44 +1998,6 @@ html {
   }
 }
 
-.card :where(figure:first-child) {
-  overflow: hidden;
-  border-start-start-radius: inherit;
-  border-start-end-radius: inherit;
-  border-end-start-radius: unset;
-  border-end-end-radius: unset;
-}
-
-.card :where(figure:last-child) {
-  overflow: hidden;
-  border-start-start-radius: unset;
-  border-start-end-radius: unset;
-  border-end-start-radius: inherit;
-  border-end-end-radius: inherit;
-}
-
-.card:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
-.card.bordered {
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--b2, var(--b1)) / var(--tw-border-opacity));
-}
-
-.card.compact .card-body {
-  padding: 1rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.card.image-full :where(figure) {
-  overflow: hidden;
-  border-radius: inherit;
-}
-
 @-webkit-keyframes checkmark {
   0% {
     background-position-y: 5px;
@@ -2131,20 +2024,6 @@ html {
   100% {
     background-position-y: 0;
   }
-}
-
-.divider:before {
-  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.1;
-}
-
-.divider:after {
-  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.1;
-}
-
-.divider:not(:empty) {
-  gap: 1rem;
 }
 
 .input[list]::-webkit-calendar-picker-indicator {
@@ -2328,57 +2207,6 @@ html {
   }
 }
 
-.rounded-box {
-  border-radius: var(--rounded-box, 1rem);
-}
-
-.flex {
-  display: flex;
-}
-
-.grid {
-  display: grid;
-}
-
-.h-32 {
-  height: 8rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.flex-grow {
-  flex-grow: 1;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.place-items-center {
-  place-items: center;
-}
-
-.border {
-  border-width: 1px;
-}
-
-.bg-primary {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--p) / var(--tw-bg-opacity));
-}
-
-.bg-base-300 {
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
-}
-
-.text-primary-content {
-  --tw-text-opacity: 1;
-  color: hsl(var(--pc) / var(--tw-text-opacity));
-}
-
 .text-success {
   --tw-text-opacity: 1;
   color: hsl(var(--su) / var(--tw-text-opacity));
@@ -2392,33 +2220,4 @@ html {
 .filter {
   -webkit-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
           filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
-@media (min-width: 1024px) {
-  .lg\:divider-horizontal {
-    flex-direction: column;
-  }
-
-  .lg\:divider-horizontal:before {
-    height: 100%;
-    width: 0.125rem;
-  }
-
-  .lg\:divider-horizontal:after {
-    height: 100%;
-    width: 0.125rem;
-  }
-
-  .lg\:divider-horizontal {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    height: auto;
-    width: 1rem;
-  }
-
-  .lg\:flex-row {
-    flex-direction: row;
-  }
 }
