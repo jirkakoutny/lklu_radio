@@ -9,11 +9,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const proxy_url = "https://lklu-meteo-proxy.vercel.app/"
+
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(process.env.fetch_url);
-
+        const response = await axios.get(process.env.fetch_url || proxy_url);
+ 
         const json = xml2json(response.data);
         const datetime = moment(
           json.wario.date + " " + json.wario.time,
