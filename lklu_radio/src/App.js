@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(process.env.fetch_url || proxy_url);
+        const response = await axios.get(proxy_url);
 
         const json = xml2json(response.data);
         const datetime = moment(
