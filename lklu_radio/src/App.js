@@ -46,7 +46,7 @@ function App() {
           civilEnd: civilEnd.format("HH:MM"),
           frequency: "125,285 MHz",
           rwy: "02/20",
-          circles: "2200 ft",
+          circles: "2200ft",
           temperature: Math.round(
             json.wario.input.sensor.filter((x) => x.type === "temperature")[0]
               ?.value) +
@@ -112,88 +112,63 @@ function App() {
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
-      <div className="flex flex-col w-full lg:flex-row">
-        <div className="grid flex-grow card bg-base-300 rounded-box">
-          <div className="mockup-code">
-            <pre>
-              LKLU radio{" "}
-              <code className="text-success">{!loading && data.frequency}</code>{" "}
-              <code className="text-warning">
-                {!loading && "RWY " + data.rwy}
-              </code>
-            </pre>
-            <pre data-prefix=">">
-              UTC:{" "}
-              <code className="text-success">{!loading && data.datetime}</code>
-            </pre>
-            <pre data-prefix=">">
-              Civil twilight:{" "}
-              <code className="text-warning">
-                {!loading && data.civilStart + "-" + data.civilEnd}
-              </code>
-            </pre>
-            <pre data-prefix=">">
-              QNH:{" "}
-              <code className="text-success">{!loading && data.pressure}</code>
-            </pre>
-            <pre data-prefix=">">
-              Temp/Dew point:{" "}
-              <code className="text-success">
-                {!loading && data.temperature + "/" + data.dewPoint}
-              </code>
-            </pre>
-            <pre data-prefix=">">
-              Wind:{" "}
-              <code className="text-success">
-                {!loading && data.windDirection + "/" + data.windSpeed}
-              </code>
-              <code className="text-warning">
-                {!loading &&
-                  data.windGust !== "" &&
-                  " (gusting " + data.windGust + ")"}
-              </code>
-            </pre>
+      <div className="stack">
+        <div className="card shadow-md bg-primary text-primary-content">
+          <div className="card-body">
+            <div className="flex flex-col w-full lg:flex-row">
+              <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
+                <div className="stats shadow">
+                  <div className="stats stats-vertical lg:stats-horizontal shadow">
+                    <div className="stat">
+                      <div className="stat-title">LKLU</div>
+                      <div className="stat-value">{!loading && data.frequency}</div>
+                      <div className="stat-desc">{!loading && "RWY " + data.rwy + " Circles " + data.circles}</div>
+                      <div className="stat-desc">{!loading}</div>
+                    </div>
+
+                    <div className="stat">
+                      <div className="stat-title">UTC</div>
+                      <div className="stat-value">{!loading && data.datetime}</div>
+                      <div className="stat-desc">{!loading && '☉' + data.civilStart + " - ☽" + data.civilEnd}</div>
+                    </div>
+
+                    <div className="stat">
+                      <div className="stat-title">QNH</div>
+                      <div className="stat-value">{!loading && data.pressure}</div>
+                      <div className="stat-desc">{!loading && '↓' + data.pressureMin + ' - ↑' + data.pressureMax}</div>
+                    </div>
+
+                    <div className="stat">
+                      <div className="stat-title">Temperature</div>
+                      <div className="stat-value">{!loading && data.temperature + "/" + data.dewPoint}</div>
+                      <div className="stat-desc">{!loading && '↓' + data.temperatureMin + "/" + data.dewPointMin + " - ↑" + data.temperatureMax + "/" + data.dewPointMax}</div>
+                    </div>
+
+                    <div className="stat">
+                      <div className="stat-title">Wind</div>
+                      <div className="stat-value">{!loading && data.windDirection + "/" + data.windSpeed}{!loading &&
+                        data.windGust !== "" &&
+                        " (" + data.windGust + ")"}</div>
+                      <div className="stat-desc">{!loading && '↓' + data.windSpeedMin + "/" + data.windGustMin + " - ↑" + data.windSpeedMax + "/" + data.windGustMax}</div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="divider lg:divider-horizontal"></div>
-        <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
-          <div className="stats shadow">
-            <div className="stats stats-vertical lg:stats-horizontal shadow">
-              <div className="stat">
-                <div className="stat-title">LKLU</div>
-                <div className="stat-value">{!loading && data.frequency}</div>
-                <div className="stat-desc">{!loading && "RWY " + data.rwy}</div>
-                <div className="stat-desc">{!loading && "Circles " + data.circles}</div>
-              </div>
-
-              <div className="stat">
-                <div className="stat-title">UTC</div>
-                <div className="stat-value">{!loading && data.datetime}</div>
-                <div className="stat-desc">{!loading && '☉' + data.civilStart + " - ☽" + data.civilEnd}</div>
-              </div>
-
-              <div className="stat">
-                <div className="stat-title">QNH</div>
-                <div className="stat-value">{!loading && data.pressure}</div>
-                <div className="stat-desc">{!loading && '↓' + data.pressureMin + ' - ↑' + data.pressureMax}</div>
-              </div>
-
-              <div className="stat">
-                <div className="stat-title">Temperature</div>
-                <div className="stat-value">{!loading && data.temperature + "/" + data.dewPoint}</div>
-                <div className="stat-desc">{!loading && '↓' + data.temperatureMin + "/" + data.dewPointMin + " - ↑" + data.temperatureMax + "/" + data.dewPointMax}</div>
-              </div>
-
-              <div className="stat">
-                <div className="stat-title">Wind</div>
-                <div className="stat-value">{!loading && data.windDirection + "/" + data.windSpeed}{!loading &&
-                  data.windGust !== "" &&
-                  " (" + data.windGust + ")"}</div>
-                <div className="stat-desc">{!loading && '↓' + data.windSpeedMin + "/" + data.windGustMin + " - ↑" + data.windSpeedMax + "/" + data.windGustMax}</div>
-              </div>
-
-            </div>
-
+        <div className="card shadow bg-primary text-primary-content">
+          <div className="card-body">
+            <h2 className="card-title">Notification 2</h2>
+            <p>You have 3 unread messages. Tap here to see.</p>
+          </div>
+        </div>
+        <div className="card shadow-sm bg-primary text-primary-content">
+          <div className="card-body">
+            <h2 className="card-title">Notification 3</h2>
+            <p>You have 3 unread messages. Tap here to see.</p>
           </div>
         </div>
       </div>
