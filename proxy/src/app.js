@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.get("/data", (req, res) => {
   request(
-    { url: process.env.fetch_url || fetch_url},
+    { url: fetch_url},
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: "error", message: error.message });
