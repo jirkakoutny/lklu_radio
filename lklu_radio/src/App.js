@@ -9,7 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const proxy_url = "https://lklu-meteo-proxy.vercel.app/"
+  const proxy_url = "https://lklu-meteo-proxy.vercel.app/data"
 
   useEffect(() => {
     const getData = async () => {
