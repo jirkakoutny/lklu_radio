@@ -86,7 +86,7 @@ function App() {
 
       <div className="mockup-code">
         <pre data-prefix="$">
-          LKLU radio <code>125,285</code>
+          LKLU radio <code className="text-warning">125,285</code>
         </pre>
         <pre data-prefix=">" className="text-warning">
           Time: <code>{!loading && data.datetime}</code>
