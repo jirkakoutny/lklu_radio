@@ -22,10 +22,18 @@ function App() {
           "YYYY-M-D h:m:s"
         );
 
+        const civilStart = moment(
+          json.wario?.variable?.civstart,
+          "h:m:s"
+        );
+        const civilEnd = moment(
+          json.wario?.variable?.civend,
+          "h:m:s"
+        );
         const output = {
           datetime: datetime.format("DD-MM-YYYY hh:mm:ss"),
           frequency: '125,285 MHz',
-          rwy: 20,
+          rwy: "02/20",
           temperature:
             json.wario.input.sensor.filter((x) => x.type === "temperature")[0]
               ?.value +
@@ -37,8 +45,8 @@ function App() {
             "°" +
             json.wario.degree,
           pressure:
-            json.wario.input.sensor.filter((x) => x.type === "pressure")[0]
-              ?.value + json.wario.pressure,
+            Math.round(json.wario.input.sensor.filter((x) => x.type === "pressure")[0]
+              ?.value) + json.wario.pressure,
           windDirection:
             json.wario?.input?.sensor?.filter(
               (x) => x.type === "wind_direction"
@@ -58,8 +66,8 @@ function App() {
           windDirectionRaw: json.wario?.input?.sensor?.filter(
             (x) => x.type === "wind_direction"
           )[0]?.value,
-          civilStart: json.wario?.variable?.civstart,
-          civilEnd: json.wario?.variable?.civend,
+          civilStart: civilStart.format("hh:mm:ss"),
+          civilEnd: civilEnd.format("hh:mm:ss")
         };
 
         setData(output);
@@ -89,37 +97,25 @@ function App() {
 
       <div className="mockup-code">
         <pre>
-          LKLU radio <code className="text-warning">{!loading && data.frequency}</code> <code className="text-warning">{!loading && data.frequency}</code>
+          LKLU radio <code className="text-success">{!loading && data.frequency}</code> <code className="text-warning">{!loading && "RWY " + data.rwy}</code>
         </pre>
         <pre data-prefix=">">
-          Time: <code className="text-warning">{!loading && data.datetime}</code>
+          Time: <code className="text-success">{!loading && data.datetime}</code>
         </pre>
-        <pre data-prefix=">" className="text-warning">
-          Rwy:{" "}
-          <code>
-            {!loading &&
-              pad(data.rwy / 10, 2) + "/" + pad((data.rwy + 180) / 10, 2)}
-          </code>
-        </pre>
-        <pre data-prefix=">" className="text-success">
-          QNH: <code>{!loading && data.pressure}</code>
-        </pre>
-        <pre data-prefix=">" className="text-warning">
-          Temp/Dew point:{" "}
-          <code>{!loading && data.temperature + "/" + data.dewPoint}</code>
-        </pre>
-        <pre data-prefix=">" className="text-success">
-          Wind:{" "}
-          <code>{!loading && data.windDirection + "/" + data.windSpeed}</code>
-        </pre>
-        {!loading && data.windSpeed !== data.windGust && (
-          <pre data-prefix=">" className="text-success">
-            Wind Gust: <code>{!loading && data.windGust}</code>
-          </pre>
-        )}
-        <pre data-prefix=">" className="text-success">
+        <pre data-prefix=">">
           Civil twilight:{" "}
-          <code>{!loading && data.civilStart + "-" + data.civilEnd}</code>
+          <code className="text-warning">{!loading && data.civilStart + "-" + data.civilEnd}</code>
+        </pre>        
+        <pre data-prefix=">">
+          QNH: <code className="text-success">{!loading && data.pressure}</code>
+        </pre>
+        <pre data-prefix=">">
+          Temp/Dew point:{" "}
+          <code className="text-success">{!loading && data.temperature + "/" + data.dewPoint}</code>
+        </pre>
+        <pre data-prefix=">">
+          Wind:{" "}
+          <code className="text-success">{!loading && data.windDirection + "/" + data.windSpeed}</code><code className="text-warning">{!loading && data.windGust !== "" && " (gusting " + data.windGust + ")"}</code>
         </pre>
       </div>
     </div>
