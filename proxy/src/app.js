@@ -24,6 +24,7 @@ app.get("/data", (req, res) => {
       res.send(body);
     });
   } catch (error) {
+    console.log(error)
     return res.status(200).json(error);
   }
 });
