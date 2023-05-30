@@ -24,7 +24,7 @@ function App() {
 
         const output = {
           datetime: datetime.format("DD-MM-YYYY hh:mm:ss"),
-          frequency: '125,285 MHz'
+          frequency: '125,285 MHz',
           rwy: 20,
           temperature:
             json.wario.input.sensor.filter((x) => x.type === "temperature")[0]
