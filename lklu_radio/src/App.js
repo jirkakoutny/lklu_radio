@@ -79,7 +79,7 @@ function App() {
                 (x) => x.type === "wind_speed"
               )[0]?.value * 1.9438452
             ) + "kt",
-          windSpeedMin: Math.round(windGustMin),
+          windSpeedMin: Math.round(windSpeedMin),
           windSpeedMax: Math.round(windSpeedMax),
           windGust:
             Math.round(
