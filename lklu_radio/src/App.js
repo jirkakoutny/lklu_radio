@@ -14,32 +14,42 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(proxy_url);
+        setData(parseJsonData(await getJsonData()));
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
 
-        const json = xml2json(response.data);
+      function parseJsonData(json) {
         const datetime = moment.utc(moment(
           json.wario.date + " " + json.wario.time,
           "YYYY-M-D h:m:s"
         ));
 
 
-        const pressureMin = json.wario.minmax.s.filter(x => x.id === '1008')[0].min
-        const pressureMax = json.wario.minmax.s.filter(x => x.id === '1008')[0].max
+        const minmaxData = json.wario?.minmax?.s;
+        
+        const pressureMin = minmaxData.filter(x => x.id === '1008')[0].min;
+        const pressureMax = minmaxData.filter(x => x.id === '1008')[0].max;
 
-        const temperatureMin = json.wario.minmax.s.filter(x => x.id === '1006')[0].min
-        const temperatureMax = json.wario.minmax.s.filter(x => x.id === '1006')[0].max
+        const temperatureMin = minmaxData.filter(x => x.id === '1006')[0].min;
+        const temperatureMax = minmaxData.filter(x => x.id === '1006')[0].max;
 
-        const dewPointMin = json.wario.minmax.s.filter(x => x.id === '1010')[0].min
-        const dewPointMax = json.wario.minmax.s.filter(x => x.id === '1010')[0].max
+        const dewPointMin = minmaxData.filter(x => x.id === '1010')[0].min;
+        const dewPointMax = minmaxData.filter(x => x.id === '1010')[0].max;
 
-        const windSpeedMin = json.wario.minmax.s.filter(x => x.id === '1003')[0].min
-        const windSpeedMax = json.wario.minmax.s.filter(x => x.id === '1003')[0].max
+        const windSpeedMin = minmaxData.filter(x => x.id === '1003')[0].min;
+        const windSpeedMax = minmaxData.filter(x => x.id === '1003')[0].max;
 
-        const windGustMin = json.wario.minmax.s.filter(x => x.id === '1004')[0].min
-        const windGustMax = json.wario.minmax.s.filter(x => x.id === '1004')[0].max
+        const windGustMin = minmaxData.filter(x => x.id === '1004')[0].min;
+        const windGustMax = minmaxData.filter(x => x.id === '1004')[0].max;
 
         const civilStart = moment.utc(moment(json.wario?.variable?.civstart, "h:m:s"));
         const civilEnd = moment.utc(moment(json.wario?.variable?.civend, "h:m:s"));
+        
         const output = {
           datetime: datetime.format("HH:MM"),
           civilStart: civilStart.format("HH:MM"),
@@ -54,53 +64,48 @@ function App() {
             json.wario.degree,
           temperatureMin: Math.round(temperatureMin),
           temperatureMax: Math.round(temperatureMax),
-          dewPoint:
-            Math.round(
-              json.wario.input.sensor.filter((x) => x.type === "dew_point")[0]
-                ?.value) +
+          dewPoint: Math.round(
+            json.wario.input.sensor.filter((x) => x.type === "dew_point")[0]
+              ?.value) +
             "°" +
             json.wario.degree,
           dewPointMin: Math.round(dewPointMin),
           dewPointMax: Math.round(dewPointMax),
-          pressure:
-            Math.round(
-              json.wario.input.sensor.filter((x) => x.type === "pressure")[0]
-                ?.value
-            ) + json.wario.pressure,
+          pressure: Math.round(
+            json.wario.input.sensor.filter((x) => x.type === "pressure")[0]
+              ?.value
+          ) + json.wario.pressure,
           pressureMin: Math.round(pressureMin),
           pressureMax: Math.round(pressureMax),
-          windDirection:
-            Math.round(json.wario?.input?.sensor?.filter(
-              (x) => x.type === "wind_direction"
-            )[0]?.value) + "°",
-          windSpeed:
-            Math.round(
-              json.wario?.input?.sensor?.filter(
-                (x) => x.type === "wind_speed"
-              )[0]?.value * 1.9438452
-            ) + "kt",
+          windDirection: Math.round(json.wario?.input?.sensor?.filter(
+            (x) => x.type === "wind_direction"
+          )[0]?.value) + "°",
+          windSpeed: Math.round(
+            json.wario?.input?.sensor?.filter(
+              (x) => x.type === "wind_speed"
+            )[0]?.value * 1.9438452
+          ) + "kt",
           windSpeedMin: Math.round(windSpeedMin),
           windSpeedMax: Math.round(windSpeedMax),
-          windGust:
-            Math.round(
-              json.wario?.input?.sensor?.filter(
-                (x) => x.type === "wind_gust"
-              )[0]?.value * 1.9438452
-            ) + "kt",
+          windGust: Math.round(
+            json.wario?.input?.sensor?.filter(
+              (x) => x.type === "wind_gust"
+            )[0]?.value * 1.9438452
+          ) + "kt",
           windGustMin: Math.round(windGustMin),
           windGustMax: Math.round(windGustMax),
           windDirectionRaw: json.wario?.input?.sensor?.filter(
             (x) => x.type === "wind_direction"
           )[0]?.value,
         };
+        return output;
+      }
 
-        setData(output);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        setData(null);
-      } finally {
-        setLoading(false);
+      async function getJsonData() {
+        const response = await axios.get(proxy_url);
+
+        const json = xml2json(response.data);
+        return json;
       }
     };
     getData();
