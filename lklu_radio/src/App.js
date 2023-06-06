@@ -128,7 +128,7 @@ function App() {
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
-      <div class="grid h-screen place-items-center">
+      <div class="grid place-items-center">
         <div className="stack">
           <div className="card shadow-md bg-primary text-primary-content">
             <div className="card-body">
