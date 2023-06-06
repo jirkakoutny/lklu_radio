@@ -27,7 +27,7 @@ app.get("/data", (req, res) => {
     if(seconds<10 && lastFetch !== null && lastData !== null) {
       console.log("Cached " + seconds)
       res.set("Content-Type", "text/xml");
-      res.send(lastData);
+      return res.send(lastData);
     }
 
     request({ url: fetch_url }, (error, response, body) => {
