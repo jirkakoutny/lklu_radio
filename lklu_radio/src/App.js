@@ -146,63 +146,56 @@ function App() {
           <div className="stats stats-vertical lg:stats-horizontal shadow">
             <div className="stat">
               <div className="stat-title">LKLU</div>
-              <div className="stat-value">{!loading && data.frequency}</div>
+              <div className="stat-value">{data.frequency}</div>
               <div className="stat-desc">
                 {!loading && "RWY " + data.rwy + " Circles " + data.circles}
               </div>
-              <div className="stat-desc">{!loading}</div>
             </div>
-
             <div className="stat">
               <div className="stat-title">UTC</div>
-              <div className="stat-value">{!loading && data.datetime}</div>
+              <div className="stat-value">{data.datetime}</div>
               <div className="stat-desc">
-                {!loading && "☉" + data.civilStart + " - ☽" + data.civilEnd}
+                {"☉" + data.civilStart + " - ☽" + data.civilEnd}
               </div>
             </div>
-
             <div className="stat">
               <div className="stat-title">QNH</div>
-              <div className="stat-value">{!loading && data.pressure}</div>
+              <div className="stat-value">{data.pressure}</div>
               <div className="stat-desc">
-                {!loading && "↓" + data.pressureMin + " - ↑" + data.pressureMax}
+                {"↓" + data.pressureMin + " - ↑" + data.pressureMax}
               </div>
             </div>
-
             <div className="stat">
-              <div className="stat-title">Temperature</div>
+              <div className="stat-title">Temperature/Dew point</div>
               <div className="stat-value">
-                {!loading && data.temperature + "/" + data.dewPoint}
+                {data.temperature + "/" + data.dewPoint}
               </div>
               <div className="stat-desc">
-                {!loading &&
-                  "↓" +
-                    data.temperatureMin +
-                    "/" +
-                    data.dewPointMin +
-                    " - ↑" +
-                    data.temperatureMax +
-                    "/" +
-                    data.dewPointMax}
+                {"↓" +
+                  data.temperatureMin +
+                  "/" +
+                  data.dewPointMin +
+                  " - ↑" +
+                  data.temperatureMax +
+                  "/" +
+                  data.dewPointMax}
               </div>
             </div>
-
             <div className="stat">
-              <div className="stat-title">Wind</div>
+              <div className="stat-title">Wind/Gust</div>
               <div className="stat-value">
-                {!loading && data.windDirection + "/" + data.windSpeed}
-                {!loading && data.windGust !== "" && " (" + data.windGust + ")"}
+                {data.windDirection + "/" + data.windSpeed}
+                {data.windGust !== "" && " (" + data.windGust + ")"}
               </div>
               <div className="stat-desc">
-                {!loading &&
-                  "↓" +
-                    data.windSpeedMin +
-                    "/" +
-                    data.windGustMin +
-                    " - ↑" +
-                    data.windSpeedMax +
-                    "/" +
-                    data.windGustMax}
+                {"↓" +
+                  data.windSpeedMin +
+                  "/" +
+                  data.windGustMin +
+                  " - ↑" +
+                  data.windSpeedMax +
+                  "/" +
+                  data.windGustMax}
               </div>
             </div>
           </div>
