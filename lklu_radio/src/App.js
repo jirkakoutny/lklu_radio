@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import moment from "moment-timezone";
 import axios from "axios";
 import xml2json from "@hendt/xml2json";
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [data, setData] = useState(null);
@@ -187,6 +188,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Analytics />
     </div>
   );
 }
