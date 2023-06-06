@@ -143,92 +143,70 @@ function App() {
           <div>{`There is a problem fetching the post data - ${error}`}</div>
         )}
         {!loading && (
-          <div className="stack">
-            <div className="card shadow-md bg-primary text-primary-content">
-              <div className="card-body">
-                <div className="flex flex-col w-full lg:flex-row">
-                  <div className="grid flex-grow card bg-base-300 rounded-box place-items-center">
-                    <div className="stats shadow">
-                      <div className="stats stats-vertical lg:stats-horizontal shadow">
-                        <div className="stat">
-                          <div className="stat-title">LKLU</div>
-                          <div className="stat-value">
-                            {!loading && data.frequency}
-                          </div>
-                          <div className="stat-desc">
-                            {!loading &&
-                              "RWY " + data.rwy + " Circles " + data.circles}
-                          </div>
-                          <div className="stat-desc">{!loading}</div>
-                        </div>
+          <div className="stats shadow">
+            <div className="stats stats-vertical lg:stats-horizontal shadow">
+              <div className="stat">
+                <div className="stat-title">LKLU</div>
+                <div className="stat-value">{!loading && data.frequency}</div>
+                <div className="stat-desc">
+                  {!loading && "RWY " + data.rwy + " Circles " + data.circles}
+                </div>
+                <div className="stat-desc">{!loading}</div>
+              </div>
 
-                        <div className="stat">
-                          <div className="stat-title">UTC</div>
-                          <div className="stat-value">
-                            {!loading && data.datetime}
-                          </div>
-                          <div className="stat-desc">
-                            {!loading &&
-                              "☉" + data.civilStart + " - ☽" + data.civilEnd}
-                          </div>
-                        </div>
+              <div className="stat">
+                <div className="stat-title">UTC</div>
+                <div className="stat-value">{!loading && data.datetime}</div>
+                <div className="stat-desc">
+                  {!loading && "☉" + data.civilStart + " - ☽" + data.civilEnd}
+                </div>
+              </div>
 
-                        <div className="stat">
-                          <div className="stat-title">QNH</div>
-                          <div className="stat-value">
-                            {!loading && data.pressure}
-                          </div>
-                          <div className="stat-desc">
-                            {!loading &&
-                              "↓" +
-                                data.pressureMin +
-                                " - ↑" +
-                                data.pressureMax}
-                          </div>
-                        </div>
+              <div className="stat">
+                <div className="stat-title">QNH</div>
+                <div className="stat-value">{!loading && data.pressure}</div>
+                <div className="stat-desc">
+                  {!loading &&
+                    "↓" + data.pressureMin + " - ↑" + data.pressureMax}
+                </div>
+              </div>
 
-                        <div className="stat">
-                          <div className="stat-title">Temperature</div>
-                          <div className="stat-value">
-                            {!loading && data.temperature + "/" + data.dewPoint}
-                          </div>
-                          <div className="stat-desc">
-                            {!loading &&
-                              "↓" +
-                                data.temperatureMin +
-                                "/" +
-                                data.dewPointMin +
-                                " - ↑" +
-                                data.temperatureMax +
-                                "/" +
-                                data.dewPointMax}
-                          </div>
-                        </div>
+              <div className="stat">
+                <div className="stat-title">Temperature</div>
+                <div className="stat-value">
+                  {!loading && data.temperature + "/" + data.dewPoint}
+                </div>
+                <div className="stat-desc">
+                  {!loading &&
+                    "↓" +
+                      data.temperatureMin +
+                      "/" +
+                      data.dewPointMin +
+                      " - ↑" +
+                      data.temperatureMax +
+                      "/" +
+                      data.dewPointMax}
+                </div>
+              </div>
 
-                        <div className="stat">
-                          <div className="stat-title">Wind</div>
-                          <div className="stat-value">
-                            {!loading &&
-                              data.windDirection + "/" + data.windSpeed}
-                            {!loading &&
-                              data.windGust !== "" &&
-                              " (" + data.windGust + ")"}
-                          </div>
-                          <div className="stat-desc">
-                            {!loading &&
-                              "↓" +
-                                data.windSpeedMin +
-                                "/" +
-                                data.windGustMin +
-                                " - ↑" +
-                                data.windSpeedMax +
-                                "/" +
-                                data.windGustMax}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div className="stat">
+                <div className="stat-title">Wind</div>
+                <div className="stat-value">
+                  {!loading && data.windDirection + "/" + data.windSpeed}
+                  {!loading &&
+                    data.windGust !== "" &&
+                    " (" + data.windGust + ")"}
+                </div>
+                <div className="stat-desc">
+                  {!loading &&
+                    "↓" +
+                      data.windSpeedMin +
+                      "/" +
+                      data.windGustMin +
+                      " - ↑" +
+                      data.windSpeedMax +
+                      "/" +
+                      data.windGustMax}
                 </div>
               </div>
             </div>
