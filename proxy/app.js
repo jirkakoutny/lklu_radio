@@ -1,5 +1,6 @@
 const express = require("express");
 const request = require("request");
+const moment = require("moment")
 
 const fetch_url = "http://meteo.aeroklubluhacovice.cz:8081/xml.xml";
 
