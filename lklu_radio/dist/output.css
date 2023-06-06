@@ -2845,6 +2845,10 @@ html {
   width: 6rem;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -2873,6 +2877,15 @@ html {
 .bg-primary {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--p) / var(--tw-bg-opacity));
+}
+
+.bg-base-200 {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
+}
+
+.text-center {
+  text-align: center;
 }
 
 .font-mono {

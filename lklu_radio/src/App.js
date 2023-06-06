@@ -31,7 +31,7 @@ function App() {
 
 
       const minmaxData = json.wario?.minmax?.s;
-      
+
       const pressureMin = minmaxData.filter(x => x.id === '1008')[0].min;
       const pressureMax = minmaxData.filter(x => x.id === '1008')[0].max;
 
@@ -49,7 +49,7 @@ function App() {
 
       const civilStart = moment.utc(moment(json.wario?.variable?.civstart, "h:m:s"));
       const civilEnd = moment.utc(moment(json.wario?.variable?.civend, "h:m:s"));
-      
+
       const output = {
         datetime: datetime.format("HH:mm"),
         civilStart: civilStart.format("HH:mm"),
@@ -173,18 +173,6 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="card shadow bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Notification 2</h2>
-            <p>You have 3 unread messages. Tap here to see.</p>
-          </div>
-        </div>
-        <div className="card shadow-sm bg-primary text-primary-content">
-          <div className="card-body">
-            <h2 className="card-title">Notification 3</h2>
-            <p>You have 3 unread messages. Tap here to see.</p>
           </div>
         </div>
       </div>
