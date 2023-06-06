@@ -20,15 +20,18 @@ app.get("/", (req, res) => {
 
 app.get("/data", (req, res) => {
   try {
-    const now = moment()
-    const duration = moment.duration(now.diff(lastFetch));
-    const seconds = parseInt(duration.asSeconds());
-
-    if(seconds<10 && lastFetch !== null && lastData !== null) {
-      console.log("Cached " + seconds)
-      res.set("Content-Type", "text/xml");
-      return res.send(lastData);
+    if(lastFetch && lastData) {
+      const now = moment()
+      const duration = moment.duration(now.diff(lastFetch));
+      const seconds = parseInt(duration.asSeconds());
+  
+      if(seconds<10) {
+        console.log("Cached " + seconds)
+        res.set("Content-Type", "text/xml");
+        return res.send(lastData);
+      }
     }
+    
 
     request({ url: fetch_url }, (error, response, body) => {
       if (error || response.statusCode !== 200) {
