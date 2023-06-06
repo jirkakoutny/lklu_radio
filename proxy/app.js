@@ -38,7 +38,7 @@ app.get("/data", (req, res) => {
       lastFetch = moment()
       lastData = body
       res.set("Content-Type", "text/xml");
-      res.send(body);
+      return res.send(body);
     });
   } catch (error) {
     console.log(error)
