@@ -2185,6 +2185,14 @@ html {
   padding-bottom: 1rem;
 }
 
+.stat-figure {
+  grid-column-start: 2;
+  grid-row: span 3 / span 3;
+  grid-row-start: 1;
+  place-self: center;
+  justify-self: end;
+}
+
 .stat-title {
   grid-column-start: 1;
   white-space: nowrap;
@@ -3165,6 +3173,10 @@ html {
   overflow-y: auto;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .flex {
   display: flex;
 }
@@ -3181,6 +3193,10 @@ html {
   height: 8rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -3195,6 +3211,10 @@ html {
 
 .w-32 {
   width: 8rem;
+}
+
+.w-8 {
+  width: 2rem;
 }
 
 .flex-grow {
@@ -3232,6 +3252,10 @@ html {
   background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
 }
 
+.stroke-current {
+  stroke: currentColor;
+}
+
 .text-center {
   text-align: center;
 }
@@ -3243,6 +3267,11 @@ html {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-accent {

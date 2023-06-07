@@ -97,14 +97,14 @@ function App() {
           Math.round(
             json.wario?.input?.sensor?.filter((x) => x.type === "wind_speed")[0]
               ?.value * 1.9438452
-          ) + "kt",
+          ) + "kts",
         windSpeedMin: Math.round(windSpeedMin),
         windSpeedMax: Math.round(windSpeedMax),
         windGust:
           Math.round(
             json.wario?.input?.sensor?.filter((x) => x.type === "wind_gust")[0]
               ?.value * 1.9438452
-          ) + "kt",
+          ) + "kts",
         windGustMin: Math.round(windGustMin),
         windGustMax: Math.round(windGustMax),
         windDirectionRaw: json.wario?.input?.sensor?.filter(
