@@ -25,7 +25,7 @@ app.get("/data", (req, res) => {
       const duration = moment.duration(now.diff(lastFetch));
       const seconds = parseInt(duration.asSeconds());
   
-      if(seconds<10) {
+      if(seconds<30) {
         console.log("Cached " + seconds)
         res.set("Content-Type", "text/xml");
         return res.send(lastData);
