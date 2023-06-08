@@ -125,7 +125,7 @@ function App() {
   useEffect(() => {
     const intervalCall = setInterval(() => {
       getData();
-    }, 30000);
+    }, 10000);
     return () => {
       clearInterval(intervalCall);
     };
