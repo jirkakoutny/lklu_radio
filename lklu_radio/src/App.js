@@ -136,67 +136,65 @@ function App() {
   }, []);
 
   return (
-    <div className="grid h-screen place-items-center">
+    <div className="grid place-items-center">
       {loading && <div>A moment please...</div>}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
       {!loading && (
-        <div className="stats shadow">
-          <div className="stats stats-vertical lg:stats-horizontal shadow">
-            <div className="stat">
-              <div className="stat-title">LKLU</div>
-              <div className="stat-value">{data.frequency}</div>
-              <div className="stat-desc">
-                {!loading && "RWY " + data.rwy + " Circles " + data.circles}
-              </div>
+        <div className="border stats stats-vertical lg:stats-horizontal">
+          <div className="stat">
+            <div className="stat-title">LKLU</div>
+            <div className="stat-value">{data.frequency}</div>
+            <div className="stat-desc">
+              {!loading && "RWY " + data.rwy + " Circles " + data.circles}
             </div>
-            <div className="stat">
-              <div className="stat-title">UTC</div>
-              <div className="stat-value">{data.datetime}</div>
-              <div className="stat-desc">
-                {"☉" + data.civilStart + " - ☽" + data.civilEnd}
-              </div>
+          </div>
+          <div className="stat">
+            <div className="stat-title">UTC</div>
+            <div className="stat-value">{data.datetime}</div>
+            <div className="stat-desc">
+              {"☉" + data.civilStart + " - ☽" + data.civilEnd}
             </div>
-            <div className="stat">
-              <div className="stat-title">QNH</div>
-              <div className="stat-value">{data.pressure}</div>
-              <div className="stat-desc">
-                {"↓" + data.pressureMin + " - ↑" + data.pressureMax}
-              </div>
+          </div>
+          <div className="stat">
+            <div className="stat-title">QNH</div>
+            <div className="stat-value">{data.pressure}</div>
+            <div className="stat-desc">
+              {"↓" + data.pressureMin + " - ↑" + data.pressureMax}
             </div>
-            <div className="stat">
-              <div className="stat-title">Temperature/Dew point</div>
-              <div className="stat-value">
-                {data.temperature + "/" + data.dewPoint}
-              </div>
-              <div className="stat-desc">
-                {"↓" +
-                  data.temperatureMin +
-                  "/" +
-                  data.dewPointMin +
-                  " - ↑" +
-                  data.temperatureMax +
-                  "/" +
-                  data.dewPointMax}
-              </div>
+          </div>
+          <div className="stat">
+            <div className="stat-title">Temperature/Dew point</div>
+            <div className="stat-value">
+              {data.temperature + "/" + data.dewPoint}
             </div>
-            <div className="stat">
-              <div className="stat-title">Wind/Gust</div>
-              <div className="stat-value">
-                {data.windDirection + "/" + data.windSpeed}
-                {data.windGust !== "" && " (" + data.windGust + ")"}
-              </div>
-              <div className="stat-desc">
-                {"↓" +
-                  data.windSpeedMin +
-                  "/" +
-                  data.windGustMin +
-                  " - ↑" +
-                  data.windSpeedMax +
-                  "/" +
-                  data.windGustMax}
-              </div>
+            <div className="stat-desc">
+              {"↓" +
+                data.temperatureMin +
+                "/" +
+                data.dewPointMin +
+                " - ↑" +
+                data.temperatureMax +
+                "/" +
+                data.dewPointMax}
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-title">Wind/Gust</div>
+            <div className="stat-value">
+              {data.windDirection + "/" + data.windSpeed}
+              {data.windGust !== "" && " (" + data.windGust + ")"}
+            </div>
+            <div className="stat-desc">
+              {"↓" +
+                data.windSpeedMin +
+                "/" +
+                data.windGustMin +
+                " - ↑" +
+                data.windSpeedMax +
+                "/" +
+                data.windGustMax}
             </div>
           </div>
         </div>
