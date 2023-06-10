@@ -3271,6 +3271,10 @@ html {
   stroke: currentColor;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
 .text-center {
   text-align: center;
 }
