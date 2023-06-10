@@ -4,16 +4,7 @@ import moment from "moment-timezone";
 import axios from "axios";
 import xml2json from "@hendt/xml2json";
 import { Analytics } from "@vercel/analytics/react";
-
-function Stat(props) {
-  return (
-    <div className="stat">
-      <div className="stat-title">{props.label}</div>
-      <div className="stat-value">{props.value}</div>
-      <div className="stat-desc">{props.desc}</div>
-    </div>
-  );
-}
+import { Stat } from "./Stat";
 
 function App() {
   const [data, setData] = useState(null);
