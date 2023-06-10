@@ -2027,6 +2027,18 @@ html {
   transition: all 1s cubic-bezier(1, 0, 0, 1);
 }
 
+.label {
+  display: flex;
+  -webkit-user-select: none;
+          user-select: none;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .indicator {
   position: relative;
   display: inline-flex;
@@ -2458,6 +2470,11 @@ html {
   color: hsl(var(--ac) / var(--tw-text-opacity));
 }
 
+.btm-nav>* .label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .btn:active:hover,
   .btn:active:focus {
   -webkit-animation: none;
@@ -2805,6 +2822,11 @@ html {
   100% {
     background-position-y: 0;
   }
+}
+
+.label a:hover {
+  --tw-text-opacity: 1;
+  color: hsl(var(--bc) / var(--tw-text-opacity));
 }
 
 .input[list]::-webkit-calendar-picker-indicator {

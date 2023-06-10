@@ -5,6 +5,16 @@ import axios from "axios";
 import xml2json from "@hendt/xml2json";
 import { Analytics } from "@vercel/analytics/react";
 
+function Stat(props) {
+  return (
+    <div className="stat">
+      <div className="stat-title">{props.label}</div>
+      <div className="stat-value">{props.value}</div>
+      <div className="stat-desc">{props.desc}</div>
+    </div>
+  );
+}
+
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -143,62 +153,57 @@ function App() {
       )}
       {!loading && (
         <div className="border stats stats-vertical lg:stats-horizontal">
-          <div className="stat">
-            <div className="stat-title">LKLU</div>
-            <div className="stat-value">{data.frequency}</div>
-            <div className="stat-desc">
-              {!loading && "RWY " + data.rwy + " Circles " + data.circles}
-            </div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">UTC</div>
-            <div className="stat-value">{data.datetime}</div>
-            <div className="stat-desc">
-              {"☉" + data.civilStart + " - ☽" + data.civilEnd}
-            </div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">QNH</div>
-            <div className="stat-value">{data.pressure}</div>
-            <div className="stat-desc">
-              {"↓" + data.pressureMin + " - ↑" + data.pressureMax}
-            </div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">Temperature/Dew point</div>
-            <div className="stat-value">
-              {data.temperature + "/" + data.dewPoint}
-            </div>
-            <div className="stat-desc">
-              {"↓" +
-                data.temperatureMin +
-                "/" +
-                data.dewPointMin +
-                " - ↑" +
-                data.temperatureMax +
-                "/" +
-                data.dewPointMax}
-            </div>
-          </div>
-          <div className="stat">
-            <div className="stat-title">Wind/Gust</div>
-            <div className="stat-value">
-              {data.windDirection + "/" + data.windSpeed}
-              {data.windGust !== "" && " (" + data.windGust + ")"}
-            </div>
-            <div className="stat-desc">
-              {"↓" +
-                data.windSpeedMin +
-                "/" +
-                data.windGustMin +
-                " - ↑" +
-                data.windSpeedMax +
-                "/" +
-                data.windGustMax}
-            </div>
-          </div>
+          <Stat
+            label="LKLU"
+            value={data.frequency}
+            desc={"RWY " + data.rwy + " Circles " + data.circles}
+          />
+          <Stat
+            label="UTC"
+            value={data.datetime}
+            desc={"☉" + data.civilStart + " - ☽" + data.civilEnd}
+          />
+          <Stat
+            label="QNH"
+            value={data.pressure}
+            desc={"↓" + data.pressureMin + " - ↑" + data.pressureMax}
+          />
+          <Stat
+            label="Temperature/Dew point"
+            value={data.temperature + "/" + data.dewPoint}
+            desc={
+              "↓" +
+              data.temperatureMin +
+              "/" +
+              data.dewPointMin +
+              " - ↑" +
+              data.temperatureMax +
+              "/" +
+              data.dewPointMax
+            }
+          />
+          <Stat
+            label="Wind/Gust"
+            value={
+              data.windDirection +
+              "/" +
+              data.windSpeed +
+              (data.windGust !== "" && " (" + data.windGust + ")")
+            }
+            desc={
+              "↓" +
+              data.windSpeedMin +
+              "/" +
+              data.windGustMin +
+              " - ↑" +
+              data.windSpeedMax +
+              "/" +
+              data.windGustMax
+            }
+          />
         </div>
       )}
+      
       <Analytics />
     </div>
   );
