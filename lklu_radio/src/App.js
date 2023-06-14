@@ -138,7 +138,9 @@ function App() {
 
   return (
     <div className="p-8 grid place-items-center">
-      {loading && <div>A moment please...</div>}
+      {loading && <div>
+        <div>A moment please...</div>
+        </div>}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
