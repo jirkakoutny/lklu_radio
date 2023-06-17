@@ -12,7 +12,6 @@ import { LKLU as homeAirfield} from "./config"
 function App() {
   const [data, setMeteoData] = useState(null);
   const [geo, setGeoData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const proxy_url = "https://lklu-meteo-proxy.vercel.app/data";
@@ -25,7 +24,6 @@ function App() {
       setError(err.message);
       setMeteoData(null);
     } finally {
-      setLoading(false);
     }
 
     async function getMeteoJson() {
@@ -49,7 +47,6 @@ function App() {
         setError(err.message);
         setGeoData(null);
       } finally {
-        setLoading(false);
       }
     }
     function navigationError(err) {
@@ -99,15 +96,10 @@ function App() {
 
   return (
     <div className="p-8 grid place-items-center">
-      {loading && (
-        <div>
-          <div>A moment please...</div>
-        </div>
-      )}
       {error && (
-        <div>{`There is a problem fetching the post data - ${error}`}</div>
+        <div>{`There is a problem fetching the data - ${error}`}</div>
       )}
-      {!loading && data && (
+      {data && (
         <div className="border stats stats-vertical">
           <Stat
             label={homeAirfield.label}
