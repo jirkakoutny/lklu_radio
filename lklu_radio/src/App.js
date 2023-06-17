@@ -1,30 +1,42 @@
-import "./App.css";
-import { useState, useEffect } from "react";
-import moment from "moment-timezone";
-import axios from "axios";
 import xml2json from "@hendt/xml2json";
 import { Analytics } from "@vercel/analytics/react";
+import axios from "axios";
+import { getPreciseDistance, getRhumbLineBearing } from "geolib";
+import moment from "moment-timezone";
+import { useEffect, useState } from "react";
+import "./App.css";
 import { Stat } from "./Stat";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setMeteoData] = useState(null);
+  const [geo, setGeoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const proxy_url = "https://lklu-meteo-proxy.vercel.app/data";
 
-  const getData = async () => {
+  const metersToFeetRatio = 0.000539956803;
+  const LKLU = {
+    label: "LKLU",
+    latitude: "49° 05' 32\" N",
+    longitude: "17° 43' 29\" E",
+    frequency: "125,285MHz",
+    rwy: "02/20",
+    circles: "2200ft",
+  };
+
+  const getMeteo = async () => {
     try {
-      setData(parseJsonData(await getJsonData()));
+      setMeteoData(parseMeteoJson(await getMeteoJson()));
       setError(null);
     } catch (err) {
       setError(err.message);
-      setData(null);
+      setMeteoData(null);
     } finally {
       setLoading(false);
     }
 
-    function parseJsonData(json) {
+    function parseMeteoJson(json) {
       const datetime = moment(
         json.wario.date + " " + json.wario.time,
         "YYYY-M-D h:m:s"
@@ -60,9 +72,6 @@ function App() {
         datetime: datetime.format("HH:mm"),
         civilStart: civilStart.format("HH:mm"),
         civilEnd: civilEnd.format("HH:mm"),
-        frequency: "125,285 MHz",
-        rwy: "02/20",
-        circles: "2200ft",
         temperature:
           Math.round(
             json.wario.input.sensor.filter((x) => x.type === "temperature")[0]
@@ -115,7 +124,7 @@ function App() {
       return output;
     }
 
-    async function getJsonData() {
+    async function getMeteoJson() {
       const response = await axios.get(proxy_url);
 
       const json = xml2json(response.data);
@@ -123,9 +132,87 @@ function App() {
     }
   };
 
+
+
+
+  function roundNumber(num, scale) {
+    if (!("" + num).includes("e")) {
+      return +(Math.round(num + "e+" + scale) + "e-" + scale);
+    } else {
+      var arr = ("" + num).split("e");
+      var sig = "";
+      if (+arr[1] + scale > 0) {
+        sig = "+";
+      }
+      return +(
+        Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) +
+        "e-" +
+        scale
+      );
+    }
+  }
+
+
+
+  useEffect(() => {
+    var navigationOptions = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    function navigationSuccess(pos) {
+      var crd = pos.coords;
+  
+      try {
+        const distance = roundNumber(
+          getPreciseDistance(
+            { latitude: crd.latitude, longitude: crd.longitude },
+            { latitude: LKLU.latitude, longitude: LKLU.longitude }
+          ) * metersToFeetRatio,
+          1
+        );
+  
+        const heading = Math.round(
+          getRhumbLineBearing(
+            { latitude: crd.latitude, longitude: crd.longitude },
+            { latitude: LKLU.latitude, longitude: LKLU.longitude }
+          )
+        );
+  
+        setGeoData({ heading, distance, value: heading + "°/" + distance + "NM" });
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setGeoData(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+    function navigationError(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then(function (result) {
+          if (result.state === "granted") {
+            //If granted then you can directly call your function here
+            navigator.geolocation.getCurrentPosition(navigationSuccess, navigationError, navigationOptions);
+          } else if (result.state === "prompt") {
+            //If prompt then the user will be asked to give permission
+            navigator.geolocation.getCurrentPosition(navigationSuccess, navigationError, navigationOptions);
+          } else if (result.state === "denied") {
+            //If denied then you have to show instructions to enable location
+          }
+        });
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, [LKLU]);
+
   useEffect(() => {
     const intervalCall = setInterval(() => {
-      getData();
+      getMeteo();
     }, 10000);
     return () => {
       clearInterval(intervalCall);
@@ -133,23 +220,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getData();
+    getMeteo();
   }, []);
 
   return (
     <div className="p-8 grid place-items-center">
-      {loading && <div>
-        <div>A moment please...</div>
-        </div>}
+      {loading && (
+        <div>
+          <div>A moment please...</div>
+        </div>
+      )}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
       {!loading && (
-        <div className="border stats stats-vertical lg:stats-horizontal">
+        <div className="border stats stats-vertical">
           <Stat
-            label="LKLU"
-            value={data.frequency}
-            desc={"RWY " + data.rwy + " Circles " + data.circles}
+            label={LKLU.label}
+            value={LKLU.frequency}
+            desc={"RWY " + LKLU.rwy + " Circles " + LKLU.circles}
           />
           <Stat
             label="UTC"
@@ -194,9 +283,10 @@ function App() {
               data.windGustMax
             }
           />
+          {geo && <Stat label="HDG/DST" value={geo && geo.value}></Stat>}
         </div>
       )}
-      
+
       <Analytics />
     </div>
   );
