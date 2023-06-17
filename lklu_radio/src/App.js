@@ -233,7 +233,7 @@ function App() {
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
-      {!loading && (
+      {!loading && data && (
         <div className="border stats stats-vertical">
           <Stat
             label={LKLU.label}
