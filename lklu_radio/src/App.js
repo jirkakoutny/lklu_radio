@@ -169,7 +169,7 @@ function App() {
             <Stat
               label="HDG/DST"
               value={geo && geo.value}
-              desc={geo && geo.speed !== null && geo.speed + "kts"}
+              desc={geo && geo.speed !== null && !isNaN(geo.speed) && "GS " + geo.speed + "kts"}
             ></Stat>
           )}
         </div>
