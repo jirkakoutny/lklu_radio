@@ -149,7 +149,7 @@ function App() {
               data.windGustMax
             }
           />
-          {geo && <Stat label="HDG/DST" value={geo && geo.value} desc={geo && geo.speed + "m/s"}></Stat>}
+          {geo && <Stat label="HDG/DST" value={geo && geo.value} desc={geo && geo.speed !== null && geo.speed + "m/s"}></Stat>}
         </div>
       )}
 
