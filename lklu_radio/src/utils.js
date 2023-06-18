@@ -121,5 +121,5 @@ export function roundNumber(num, scale) {
         { latitude: homeAirfield.latitude, longitude: homeAirfield.longitude }
       )
     );
-    return { heading, distance, speed: crd.speed };
+    return { heading, distance, speed: Math.round(crd.speed) };
   }

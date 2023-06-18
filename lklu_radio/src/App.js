@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Stat } from "./components/Stat";
 import { computeNavigation, parseMeteoJson } from "./utils";
-import { navigationOptions} from "./config"
-import { LKLU as homeAirfield} from "./config" 
+import { navigationOptions } from "./config";
+import { LKLU as homeAirfield } from "./config";
 
 function App() {
   const [data, setMeteoData] = useState(null);
@@ -37,11 +37,19 @@ function App() {
   const getGeo = async () => {
     function navigationSuccess(pos) {
       var crd = pos.coords;
-  
+
       try {
-        const { heading, distance, speed } = computeNavigation(crd, homeAirfield);
-  
-        setGeoData({ heading, distance, speed, value: heading + "°/" + distance + "NM" });
+        const { heading, distance, speed } = computeNavigation(
+          crd,
+          homeAirfield
+        );
+
+        setGeoData({
+          heading,
+          distance,
+          speed,
+          value: heading + "°/" + distance + "NM",
+        });
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -58,10 +66,18 @@ function App() {
         .then(function (result) {
           if (result.state === "granted") {
             //If granted then you can directly call your function here
-            navigator.geolocation.getCurrentPosition(navigationSuccess, navigationError, navigationOptions);
+            navigator.geolocation.getCurrentPosition(
+              navigationSuccess,
+              navigationError,
+              navigationOptions
+            );
           } else if (result.state === "prompt") {
             //If prompt then the user will be asked to give permission
-            navigator.geolocation.getCurrentPosition(navigationSuccess, navigationError, navigationOptions);
+            navigator.geolocation.getCurrentPosition(
+              navigationSuccess,
+              navigationError,
+              navigationOptions
+            );
           } else if (result.state === "denied") {
             //If denied then you have to show instructions to enable location
           }
@@ -69,7 +85,7 @@ function App() {
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
-  }
+  };
 
   useEffect(() => {
     const intervalCall = setInterval(() => {
@@ -96,15 +112,15 @@ function App() {
 
   return (
     <div className="p-8 grid place-items-center">
-      {error && (
-        <div>{`There is a problem fetching the data - ${error}`}</div>
-      )}
+      {error && <div>{`There is a problem fetching the data - ${error}`}</div>}
       {data && (
         <div className="border stats stats-vertical">
           <Stat
             label={homeAirfield.label}
             value={homeAirfield.frequency}
-            desc={"RWY " + homeAirfield.rwy + " Circles " + homeAirfield.circles}
+            desc={
+              "RWY " + homeAirfield.rwy + " Circles " + homeAirfield.circles
+            }
           />
           <Stat
             label="UTC"
@@ -149,17 +165,19 @@ function App() {
               data.windGustMax
             }
           />
-          {geo && <Stat label="HDG/DST" value={geo && geo.value} desc={geo && geo.speed !== null && geo.speed + "m/s"}></Stat>}
+          {geo && (
+            <Stat
+              label="HDG/DST"
+              value={geo && geo.value}
+              desc={geo && geo.speed !== null && geo.speed + "m/s"}
+            ></Stat>
+          )}
         </div>
       )}
 
       <Analytics />
     </div>
   );
-
-  
 }
 
 export default App;
-
-
