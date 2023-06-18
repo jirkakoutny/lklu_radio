@@ -119,6 +119,5 @@ export function computeNavigation(crd, homeAirfield) {
     )
   );
   const speed = Math.round(crd.speed * msToKnotsRatio);
-  console.log(speed)
   return { heading, distance, speed };
 }

@@ -37,14 +37,12 @@ app.get("/data", (req, res) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: "error", message: error.message });
       }
-      console.log("Caching")
       lastFetch = moment()
       lastData = body
       res.set("Content-Type", "text/xml");
       return res.send(body);
     });
   } catch (error) {
-    console.log(error)
     return res.status(200).json(error);
   }
 });
