@@ -39,9 +39,9 @@ function App() {
       var crd = pos.coords;
   
       try {
-        const { heading, distance } = computeNavigation(crd, homeAirfield);
+        const { heading, distance, speed } = computeNavigation(crd, homeAirfield);
   
-        setGeoData({ heading, distance, value: heading + "°/" + distance + "NM" });
+        setGeoData({ heading, distance, speed, value: heading + "°/" + distance + "NM" });
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -149,7 +149,7 @@ function App() {
               data.windGustMax
             }
           />
-          {geo && <Stat label="HDG/DST" value={geo && geo.value}></Stat>}
+          {geo && <Stat label="HDG/DST" value={geo && geo.value} desc={geo && + geo.speed + "m/s"}></Stat>}
         </div>
       )}
 

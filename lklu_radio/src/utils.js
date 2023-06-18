@@ -115,12 +115,11 @@ export function roundNumber(num, scale) {
       ) * metersToFeetRatio,
       1
     );
-  
     const heading = Math.round(
       getRhumbLineBearing(
         { latitude: crd.latitude, longitude: crd.longitude },
         { latitude: homeAirfield.latitude, longitude: homeAirfield.longitude }
       )
     );
-    return { heading, distance };
+    return { heading, distance, speed: crd.speed };
   }
