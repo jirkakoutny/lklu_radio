@@ -172,6 +172,7 @@ function App() {
               desc={
                 geo &&
                 geo.speed !== null &&
+                geo.speed !== 0 &&
                 !isNaN(geo.speed) &&
                 "GS " + geo.speed + "kts"
               }
